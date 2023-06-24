@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -80,18 +81,11 @@ public class DebitCardTest {
     }
 
     @Test
-    public void shouldIsSelectedCheckedCheckBox() {
+    public void shouldInvalidCheckBox() {
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Александр Мужев-Петров");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79120009999");
-        driver.findElement(By.className("checkbox__box")).click();
-        driver.findElement(By.className("checkbox_checked")).isSelected();
-    }
-
-    @Test
-    public void shouldUnCheckedCheckBox() {
-        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Александр Мужев-Петров");
-        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79120009999");
-        boolean checkbox = driver.findElement(By.className("checkbox__box")).isSelected();
-        Assertions.assertFalse(checkbox);
+        driver.findElement(By.className("button")).click();
+        WebElement checkbox = driver.findElement(new By.ByCssSelector("[data-test-id=agreement].input_invalid"));
+        checkbox.isDisplayed();
     }
 }
